@@ -9,7 +9,21 @@ const LinkedList = require("../lib/linkedList");
  * @returns {LinkedList}
  * A linked list in reverse order
  */
-function reverseIterative(list) {}
+function reverseIterative(list) {
+  //declare a variable named reversedList and initialize it to an empty LinkedList
+  let reversedList = new LinkedList();
+  //declare a variable node initialized to the head of the list
+  let node = list.head;
+  //while the null pointer is not null do
+  while (node) {
+    //insert the node value at the head of the reversedList
+    reversedList.insertAtHead(node.value);
+    //move the node pointer along to the next node
+    node = node.next;
+  }
+  //return the reversedList
+  return reversedList;
+}
 
 /**
  * Recursively reverse a linked list
@@ -20,6 +34,16 @@ function reverseIterative(list) {}
  * @returns {LinkedList}
  * A linked list in reverse order
  */
-function reverseRecursive(list) {}
+function reverseRecursive(list) {
+  if (list.length <= 1) {
+    return list;
+  }
+
+  const head = list.head.value;
+  list.remove((node, index) => index === 0);
+  const reversedList = reverseRecursive(list);
+  reversedList.insert(head);
+  return reversedList;
+}
 
 module.exports = { reverseIterative, reverseRecursive };
